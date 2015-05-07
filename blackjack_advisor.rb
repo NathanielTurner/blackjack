@@ -35,27 +35,28 @@ pair = {2 => { 2 => "p", 3 => "p",4 => "p",5 => "p",6 => "p",7 => "p",8 => "h",
   10 => "s",11 => "s"},11 => { 2 => "p", 3 => "p",4 => "p",5 => "p",6 => "p",
   7 => "p",8 => "p",9 => "p",10 => "p", 11 => "p"}}
 
-hard = {8 =>{},9 =>{},10 => {},12 => {},13 => {}, 14 => {}, 15 => {},
-16 => {},}
+#credit goes to anna who helped john with this funtion
 # had so much trouble understanding how to do this until
 # i figured out that a key has to currently exist befor
 # altering the value attached to that key
-(5..7).each {|n| hard[n] = Hash.new("h")}
-[2,3,4,7,8,9,10,11].each {|n| hard[8][n] = "h" }
+#so ile use this to fill the hash with all the player values
+#Thanks mason for that default advice at the end of the day
+#it was the key to getting this
+hard = {}
+
+(5..21).each {|n| hard[n] = Hash.new("h")}
 [5,6].each {|n| hard [8][n] = 'Dh'}
 (2..6).each {|n| hard[9][n] = "Dh"}
-(7..11).each {|n| hard[9][n] = "h"}
 (2..9).each {|n| hard[10][n] = "Dh"}
-[10,11].each {|n| hard[10][n] = "h"}
-[2,3,7,8,9,10,11].each {|n| hard[12][n] = "h" }
+(4..6).each {|n| hard[12][n] = "s"}
 (13..16).each {|n| (2..6).each {|a| hard[n][a] = "s"}}
-(13..16).each {|n| (7..11).each {|a| hard[n][a] = "h"}}
-(17..21).each {|n| hard[n] = Hash.new("h")}
+(17..21).each {|n| hard[n] = Hash.new("s")}
 hard[11] = Hash.new("Dh")
 #p hard
 #p hard[11][8]
 
-hash_maker
+soft = {}
+
 puts "Please enter your first card:"
 first_card = gets.chomp
 puts "Please tner your second card:"
