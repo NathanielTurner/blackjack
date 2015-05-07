@@ -1,25 +1,25 @@
 #checks a given value and turns it into a coresponding integer or makes the user
 #enter a new value if the value entered isnt allowed than returns the value
 def optimizer(given)
-  optimized = false
-end
 
-#adds the two cards and returns thier total
-def adder(first, second)
-  total = 0
-  return total
+
 end
 
 #determins whether a players hand is hard, soft, or a pair
-def hand_type()
+def hand_type(first, second)
+  if first == second
+    return "pair"
+  elsif ((first == 11 ^ second == 11)
+    return "soft"
+  else
+    return "hard"
+  end
 end
 
 # a = hash.new("hit")
 # a ["turner"] will give "hit"
 
-# credit goes to john for helping with this one => anna
-
-
+# AHAHAHAHAHAHA
 pair = {2 => { 2 => "p", 3 => "p",4 => "p",5 => "p",6 => "p",7 => "p",8 => "h",
   9 => "h",10 => "h",11 => "h"}, 3 => {2 => "p", 3 => "p",4 => "p",5 => "p",
   6 => "p",7 => "p",8 => "p",9 => "h",10 => "h",11 => "h"},4 => { 2 => "h",
@@ -56,10 +56,27 @@ hard[11] = Hash.new("Dh")
 #p hard[11][8]
 
 soft = {}
+(13..21).each {|n| soft[n] = Hash.new("s")}
+(13..16).each {|n| [2,6].each {|a| soft[n][a] = "h"}}
+(13..17).each {|n| (7..11).each {|a| soft[n][a] = "h"}}
+(13..17).each {|n| (4..6).each {|a| soft[n][a] = "Dh"}}
+[2,3].each {|n| soft[17][n] = "Dh"}
+(3..6).each {|n| soft[18][n] = "Ds"}
+[9,10].each {|n| soft[18][n] = "h"}
+soft[19][6] = "Ds"
 
 puts "Please enter your first card:"
 first_card = gets.chomp
+  if first_card == "a"
+    first_card = 11
+  end
 puts "Please tner your second card:"
 second_card = gets.chomp
+  if second_card == "a"
+    second_card = 11
+  end
 puts "Please enter the dealer's card:"
-dealers_card = gets.chomp
+dealer_card = gets.chomp
+  if dealer_card = "a"
+    dealer_card = 11
+optimal_move = hand_type(first_card, second_card)
