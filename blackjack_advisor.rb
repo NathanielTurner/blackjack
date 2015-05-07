@@ -9,7 +9,7 @@ end
 def hand_type(first, second)
   if first == second
     return "pair"
-  elsif ((first == 11 ^ second == 11)
+  elsif ((first.to_i == 11) ^ (second.to_i == 11))
     return "soft"
   else
     return "hard"
@@ -20,20 +20,20 @@ end
 # a ["turner"] will give "hit"
 
 # AHAHAHAHAHAHA
-pair = {2 => { 2 => "p", 3 => "p",4 => "p",5 => "p",6 => "p",7 => "p",8 => "h",
-  9 => "h",10 => "h",11 => "h"}, 3 => {2 => "p", 3 => "p",4 => "p",5 => "p",
-  6 => "p",7 => "p",8 => "p",9 => "h",10 => "h",11 => "h"},4 => { 2 => "h",
-  3 => "h",4 => "p",5 => "p",6 => "p",7 => "h",8 => "h",9 => "h",10 => "h",
-  11 => "h"},5 => { 2 => "Dh", 3 => "Dh",4 => "Dh",5 => "Dh",6 => "Dh",7 => "Dh",
-  8 => "Dh",9 => "Dh",10 => "h",11 => "h"},6 => { 2 => "p", 3 => "p",4 => "p",
-  5 => "p",6 => "p",7 => "p",8 => "h",9 => "h",10 => "h",11 => "h"},
-  7 => { 2 => "p", 3 => "p",4 => "p",5 => "p",6 => "p",7 => "p",8 => "p",9 => "h",
-  10 => "s",11 => "h"},8 => { 2 => "p", 3 => "p",4 => "p",5 => "p",6 => "p",
-  7 => "p",8 => "p",9 => "p",10 => "p",11 => "p"},9 => { 2 => "p", 3 => "p",
-  4 => "p",5 => "p",6 => "p",7 => "s",8 => "p",9 => "p",10 => "s",11 => "s"},
-  10 => { 2 => "s", 3 => "s",4 => "s",5 => "s",6 => "s",7 => "s",8 => "s",9 => "s",
-  10 => "s",11 => "s"},11 => { 2 => "p", 3 => "p",4 => "p",5 => "p",6 => "p",
-  7 => "p",8 => "p",9 => "p",10 => "p", 11 => "p"}}
+pair = {2 => { 2 => "split", 3 => "split",4 => "split",5 => "split",6 => "split",7 => "split",8 => "hit",
+  9 => "hit",10 => "hit",11 => "hit"}, 3 => {2 => "split", 3 => "split",4 => "split",5 => "split",
+  6 => "split",7 => "split",8 => "split",9 => "hit",10 => "hit",11 => "hit"},4 => { 2 => "hit",
+  3 => "hit",4 => "split",5 => "split",6 => "split",7 => "hit",8 => "hit",9 => "hit",10 => "hit",
+  11 => "hit"},5 => { 2 => "Double if possible, otherwise Hit", 3 => "Double if possible, otherwise Hit",4 => "Double if possible, otherwise Hit",5 => "Double if possible, otherwise Hit",6 => "Double if possible, otherwise Hit",7 => "Double if possible, otherwise Hit",
+  8 => "Double if possible, otherwise Hit",9 => "Double if possible, otherwise Hit",10 => "hit",11 => "hit"},6 => { 2 => "split", 3 => "split",4 => "split",
+  5 => "split",6 => "split",7 => "split",8 => "hit",9 => "hit",10 => "hit",11 => "hit"},
+  7 => { 2 => "split", 3 => "split",4 => "split",5 => "split",6 => "split",7 => "split",8 => "split",9 => "hit",
+  10 => "stand",11 => "hit"},8 => { 2 => "split", 3 => "split",4 => "split",5 => "split",6 => "split",
+  7 => "split",8 => "split",9 => "split",10 => "split",11 => "split"},9 => { 2 => "split", 3 => "split",
+  4 => "split",5 => "split",6 => "split",7 => "stand",8 => "split",9 => "split",10 => "stand",11 => "stand"},
+  10 => { 2 => "stand", 3 => "stand",4 => "stand",5 => "stand",6 => "stand",7 => "stand",8 => "stand",9 => "stand",
+  10 => "stand",11 => "stand"},11 => { 2 => "split", 3 => "split",4 => "split",5 => "split",6 => "split",
+  7 => "split",8 => "split",9 => "split",10 => "split", 11 => "split"}}
 
 #credit goes to anna who helped john with this funtion
 # had so much trouble understanding how to do this until
@@ -44,39 +44,52 @@ pair = {2 => { 2 => "p", 3 => "p",4 => "p",5 => "p",6 => "p",7 => "p",8 => "h",
 #it was the key to getting this
 hard = {}
 
-(5..21).each {|n| hard[n] = Hash.new("h")}
-[5,6].each {|n| hard [8][n] = 'Dh'}
-(2..6).each {|n| hard[9][n] = "Dh"}
-(2..9).each {|n| hard[10][n] = "Dh"}
-(4..6).each {|n| hard[12][n] = "s"}
-(13..16).each {|n| (2..6).each {|a| hard[n][a] = "s"}}
-(17..21).each {|n| hard[n] = Hash.new("s")}
-hard[11] = Hash.new("Dh")
+(5..21).each {|n| hard[n] = Hash.new("hit")}
+[5,6].each {|n| hard [8][n] = "Double if possible, otherwise Hit"}
+(2..6).each {|n| hard[9][n] = "Double if possible, otherwise Hit"}
+(2..9).each {|n| hard[10][n] = "Double if possible, otherwise Hit"}
+(4..6).each {|n| hard[12][n] = "stand"}
+(13..16).each {|n| (2..6).each {|a| hard[n][a] = "stand"}}
+(17..21).each {|n| hard[n] = Hash.new("stand")}
+hard[11] = Hash.new("Double if possible, otherwise Hit")
 #p hard
 #p hard[11][8]
 
 soft = {}
-(13..21).each {|n| soft[n] = Hash.new("s")}
-(13..16).each {|n| [2,6].each {|a| soft[n][a] = "h"}}
-(13..17).each {|n| (7..11).each {|a| soft[n][a] = "h"}}
-(13..17).each {|n| (4..6).each {|a| soft[n][a] = "Dh"}}
-[2,3].each {|n| soft[17][n] = "Dh"}
-(3..6).each {|n| soft[18][n] = "Ds"}
-[9,10].each {|n| soft[18][n] = "h"}
-soft[19][6] = "Ds"
+(13..21).each {|n| soft[n] = Hash.new("stand")}
+(13..16).each {|n| [2,6].each {|a| soft[n][a] = "hit"}}
+(13..17).each {|n| (7..11).each {|a| soft[n][a] = "hit"}}
+(13..17).each {|n| (4..6).each {|a| soft[n][a] = "Double if possible, otherwise Hit"}}
+[2,3].each {|n| soft[17][n] = "Double if possible, otherwise Hit"}
+(3..6).each {|n| soft[18][n] = "Double if possible, otherwise Stand"}
+[9,10].each {|n| soft[18][n] = "hit"}
+soft[19][6] = "Double if possible, otherwise Stand"
 
 puts "Please enter your first card:"
 first_card = gets.chomp
   if first_card == "a"
     first_card = 11
   end
-puts "Please tner your second card:"
+puts "Please enter your second card:"
 second_card = gets.chomp
   if second_card == "a"
     second_card = 11
   end
 puts "Please enter the dealer's card:"
 dealer_card = gets.chomp
-  if dealer_card = "a"
+  if dealer_card == "a"
     dealer_card = 11
-optimal_move = hand_type(first_card, second_card)
+  end
+answer = ""
+type = hand_type(first_card, second_card)
+total = first_card.to_i + second_card.to_i
+if type == "pair"
+  answer = pair[first_card.to_i][dealer_card.to_i]
+  puts "your best bet is to #{answer}."
+elsif type == "hard"
+  answer = hard[total][dealer_card.to_i]
+  puts "your best bet is to #{answer}."
+else
+  answer = soft[total][dealer_card.to_i]
+  puts "your best bet is to #{answer}."
+end
